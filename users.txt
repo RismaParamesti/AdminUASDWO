@@ -1,0 +1,9 @@
+pemilik|$2y$10$FOEM1u4dFgSdlykPO08Yoerj0busHSRrh9th4JjKcyWUWbN4norXG
+pemilik|pemilik
+pemilik|pemilik
+pemilik|pemilik
+pemilik|pemilik
+pemilik|pemilik
+pemilik|pemilik
+admin|admin
+pemilik|123
