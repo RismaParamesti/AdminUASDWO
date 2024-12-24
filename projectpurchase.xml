@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<Schema name="projectuas">
+<!-- Define Cube for Purchases -->
+  <Cube name="Purchases" defaultMeasure="Amount">
+    <Table name="factpurchase"/>
+
+    <!-- Time Dimension -->
+    <Dimension name="Time" foreignKey="TimeID">
+      <Hierarchy hasAll="true" allMemberName="All Times" primaryKey="TimeID">
+        <Table name="dimtimeall"/>
+        <Level name="Year" column="Tahun" type="Numeric" uniqueMembers="true" levelType="TimeYears"/>
+        <Level name="Month" column="Bulan" type="Numeric" uniqueMembers="false" levelType="TimeMonths"/>
+        <Level name="Date" column="Tanggal" type="Numeric" uniqueMembers="false" levelType="TimeDays"/>
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Product Dimension -->
+    <Dimension name="Product" foreignKey="ProductID">
+      <Hierarchy hasAll="true" allMemberName="All Products" primaryKey="ProductID">
+        <Table name="dimproduct"/>
+        <Level name="Category" column="ProductCategory"/>
+        <Level name="SubCategory" column="ProductSubCategory"/>
+        <Level name="Name" column="ProductName"/>
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Vendor Dimension -->
+    <Dimension name="Vendor" foreignKey="VendorID">
+      <Hierarchy hasAll="true" allMemberName="All Vendors" primaryKey="VendorID">
+        <Table name="vendor"/>
+        <Level name="Name" column="VendorName"/>
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Ship Method Dimension -->
+    <Dimension name="ShipMethod" foreignKey="ShipMethodID">
+      <Hierarchy hasAll="true" allMemberName="All ShipMethod" primaryKey="ShipMethodID">
+        <Table name="dimshipmethod"/>
+        <Level name="Name" column="Name"/>
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Measures -->
+    <Measure name="Amount" column="Amount" aggregator="sum" formatString="Standard"/>
+    <Measure name="Quantity" column="Quantity" aggregator="sum" formatString="#,###"/>
+  </Cube>
+</Schema>

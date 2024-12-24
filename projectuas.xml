@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<Schema name="projectuas">
+  <!-- Define Cube for Sales -->
+  <Cube name="Sales" defaultMeasure="SalesAmount">
+    <Table name="factsales"/>
+
+    <!-- Time Dimension -->
+    <Dimension name="Time" foreignKey="TimeID">
+      <Hierarchy hasAll="true" allMemberName="All Times" primaryKey="TimeID">
+        <Table name="dimtimeall"/>
+        <Level name="Year" column="Tahun" type="Numeric" uniqueMembers="true" levelType="TimeYears"/>
+        <Level name="Month" column="Bulan" type="Numeric" uniqueMembers="false" levelType="TimeMonths"/>
+        <Level name="Date" column="Tanggal" type="Numeric" uniqueMembers="false" levelType="TimeDays"/>
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Product Dimension -->
+    <Dimension name="Product" foreignKey="ProductID">
+      <Hierarchy hasAll="true" allMemberName="All Products" primaryKey="ProductID">
+        <Table name="dimproduct"/>
+        <Level name="Category" column="ProductCategory"/>
+        <Level name="SubCategory" column="ProductSubCategory"/>
+        <Level name="Name" column="ProductName"/>
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Employee Dimension -->
+    <Dimension name="Employee" foreignKey="EmployeeID">
+      <Hierarchy hasAll="true" allMemberName="All Employees" primaryKey="EmployeeID">
+        <Table name="dimemployee"/>
+        <Level name="Name" column="EmployeeName"/>
+
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Customer Dimension -->
+    <Dimension name="Customer" foreignKey="CustomerID">
+      <Hierarchy hasAll="true" allMemberName="All Customers" primaryKey="CustomerID">
+        <Table name="dimcustomer"/>
+        <Level name="Name" column="CustomerName"/>
+        
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Sales Territory Dimension -->
+    <Dimension name="Sales Territory" foreignKey="TerritoryID">
+      <Hierarchy hasAll="true" allMemberName="All Territories" primaryKey="TerritoryID">
+        <Table name="dimsalesterritory"/>
+        <Level name="Territory" column="TerritoryName"/>
+        <Level name="Group" column="Group"/>
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Measures -->
+    <Measure name="Sales Amount" column="SalesAmount" aggregator="sum" formatString="Standard"/>
+    <Measure name="Quantity Sold" column="QuantitySold" aggregator="sum" formatString="#,###"/>
+  </Cube>
+
+  
+</Schema>
